@@ -1,0 +1,35 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+	<h3>Alle helårs-hendelser fra UKM-nettverket</h3>
+	<p>Her kan du se en oversikt over alle helårs-hendelser som er lagt ut i UKM-nettverket, og hente informasjon og inspirasjon.</p>
+
+	{% if not events is empty %}
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Bilde</th>
+					<th>Navn</th>
+					<th>Sted</th>
+					<th>Start-tid</th>
+					<th>Antall plasser</th>
+					<th>Beskrivelse</th>
+			</thead>
+			<tbody>
+				{% for event in events %}
+				<tr>
+					<td><img src="{{ event.image }}" style="max-width: 50px;" /></td>
+					<td>{{ event.name }}</td>
+					<td>{{ event.place }}</td>
+					<td>{{ event.date_start.date|date("H:i d.m.Y") }}</td>
+					<td>{{ event.spots }}</td>
+					<td>{{ event.description|slice(0, 20) ~ '...' }}</td>
+					<td><a href="{{ event.url }}" target="_blank">Gå til arrangementssiden</a></td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	{% else %}
+		<b>Det finnes ingen hendelser</b>
+	{% endif %}
+{% endblock %}
