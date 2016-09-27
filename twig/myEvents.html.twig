@@ -1,4 +1,76 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
+	<div class="well">
+		{# <h4>Handlinger</h4> #}
+		{% if editEvent is defined %}
+			<div class="" style="" id="newEvent">
+				{% embed 'edit.html.twig' with { 'event': editEvent } %}{% endembed %}
+			</div>
+			<div class="col-xs-6 col-sm-3">
+				<a href="?page=UKMrsvp&action=myEvents" {# onClick="newEvent(this)" #} id="meh" class="btn btn-default form-control">Avbryt</a>
+			</div>
+		{% else %}
+			<div class="" style="display:none;" id="newEvent">
+				{% embed 'edit.html.twig' %}{% endembed %}
+			</div>
+			<div class="col-xs-6 col-sm-3">
+				<a href="#" onClick="newEvent(this)" id="meh" class="btn btn-default form-control">Ny hendelse</a>
+			</div>
+		{% endif %}
+		<script>
+			function newEvent(button) {
+				var editor = jQuery("#newEvent")[0];
+				console.log(editor);
+				console.log(button);
+				if(editor.style.display == 'none') {
+					jQuery("#newEvent").slideDown();
+					jQuery("#"+button.getAttribute("id")).html("Avbryt");
+				}
+				else {
+					jQuery("#newEvent").slideUp();
+					jQuery("#"+button.getAttribute("id")).html("Ny hendelse");
+				}
+			}
+		</script>
+
+		<div class="clearfix"></div>
+	</div>
+	<p>&nbsp;</p>
+	<h4>Dine hendelser</h4>
+	{% if not events is empty %}
+		{# TODO: FIKS DESIGN I LITEN VISNING #}
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th class="hidden-xs hidden-sm">Bilde</th>
+					<th>Navn</th>
+					<th class="hidden-xs hidden-sm">Sted</th>
+					<th>Start- og slutt-tid</th>
+					<th>Antall plasser</th>
+					<th class="hidden-xs hidden-sm">Beskrivelse</th>
+					<th class="hidden-xs"></th>
+					<th></th>
+			</thead>
+			<tbody>
+				{% for event in events %}
+				<tr>
+					<td class="hidden-xs hidden-sm"><a href="?page=UKMrsvp&action=myEvents&edit={{ event.id }}"><img src="{{ event.image }}" style="max-width: 50px;" /></a></td>
+					<td><a href="?page=UKMrsvp&action=myEvents&edit={{ event.id }}">{{ event.name }}</a></td>
+					<td class="hidden-xs hidden-sm">{{ event.place }}</td>
+					<td>{{ event.date_start.date|dato("H:i l d.m") }}
+						<div class="clearfix"></div>
+					{{ event.date_start.date|dato("H:i l d.m") }}</td>
+					<td>{{ event.spots }}</td>
+					<td class="hidden-xs hidden-sm">{{ event.description|slice(0, 20) ~ '...' }}</td>
+					<td class="hidden-xs"><a href="?page=UKMrsvp&action=myEvents&edit={{ event.id }}">Rediger</a>
+					<td><a href="{{ event.url }}" class="hidden-xs hidden-sm" target="_blank">Gå til arrangementssiden</a>
+					<a href="{{ event.url }}" class="visible-xs visible-sm" target="_blank">Vis</a></td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	{% else %}
+	<b>Du har ingen hendelser.</b>
+	{% endif %}
 {% endblock %}
