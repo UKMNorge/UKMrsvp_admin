@@ -81,6 +81,21 @@ class EventManager {
 		return $this->handleResult($events);
 	}
 
+	public function findParticipants($event_id, $owner) {
+		$settings = array();
+		$settings['time'] = time();
+		$settings['SIGNED_REQUEST'] = $this->signer->sign($settings['time']);
+		$settings['API_KEY'] = $this->api_key;
+		$settings['event_id'] = $event_id;
+		$settings['owner'] = $owner;
+
+		$time_start = microtime(true);
+		$curl = new UKMCURL();
+		$curl->post($settings);
+		$participants = $curl->process($this->participantsURL);
+		return $this->handleResult($participants);
+	}
+
 	private function handleResult($result) {
 		if(!is_object($result)) {
 			$message = new stdClass();

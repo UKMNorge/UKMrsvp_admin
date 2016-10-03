@@ -3,7 +3,6 @@
 require_once(__DIR__.'/../class/EventManager.php');
 
 $events = array();
-$owner = 'UKMNorge';
 $api_key = 'test';
 $api_secret = 'pah';
 $eventManager = new EventManager($api_key, $api_secret);

@@ -17,3 +17,10 @@ $tabs[] = (object) array( 'link'		=> 'events',
 						  'description' => 'Fra hele UKM-nettverket');
 
 $TWIG['tabs'] = $tabs;
+
+$site_type = get_option('site_type');
+if ($site_type == 'kommune' || $site_type == 'fylke') {
+	$owner = get_option('pl_id');
+} else {
+	$owner = 'UKMNorge';
+}
