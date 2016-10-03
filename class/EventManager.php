@@ -6,6 +6,7 @@ class EventManager {
 
 	private $createURL;
 	private $updateURL;
+	private $ownerURL;
 
 	public function __construct($api_key, $api_secret) {
 		$this->api_key = $api_key;
@@ -15,6 +16,12 @@ class EventManager {
 		if(UKM_HOSTNAME == 'ukm.dev') {
 			$this->createURL = 'http://rsvp.ukm.dev/web/app_dev.php/api/events/new/';
 			$this->updateURL = 'http://rsvp.ukm.dev/web/app_dev.php/api/events/edit/';
+			$this->ownerURL = 'http://rsvp.ukm.dev/web/app_dev.php/api/events/owner/';
+		}
+		else {
+			$this->createURL = 'http://rsvp.ukm.no/api/events/new/';
+			$this->updateURL = 'http://rsvp.ukm.no/api/events/edit/';
+			$this->ownerURL = 'http://rsvp.ukm.no/api/events/owner/';	
 		}
 	}
 
@@ -68,7 +75,7 @@ class EventManager {
 		// TIMEOUTS DOESNT WORK
 		$curl->timeout(5);
 		$curl->post($settings);
-		$events = $curl->process('http://rsvp.ukm.dev/web/app_dev.php/api/events/owner/');
+		$events = $curl->process($this->ownerURL);
 		$time_end = microtime(true);
 		
 		return $this->handleResult($events);

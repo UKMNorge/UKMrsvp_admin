@@ -24,8 +24,12 @@ if(isset($_POST['name'])) {
 }
 
 $events = $eventManager->fetchEvents($owner);
+#var_dump($events);
 if($events->success == true) {
 	$TWIG['events'] = $events->data;
+}
+else {
+	$TWIG['message'] = $events;
 }
 if(isset($_GET['edit'])) {
 	$id = $_GET['edit'];
