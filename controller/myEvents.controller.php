@@ -13,7 +13,7 @@ if(isset($_POST['name'])) {
 	$data = $_POST;
 	$data['owner'] = $owner;
 	$saveResult = $eventManager->saveEvent($data);
-	if($saveResult == true) {
+	if($saveResult->success == true) {
 		$TWIG['message'] = new stdClass();
 		$TWIG['message']->success = true;
 		$TWIG['message']->body = 'Lagret hendelsen "'.$data['name'].'".';
