@@ -44,7 +44,10 @@ function UKMrsvp() {
 
 	#var_dump(strpos($_GET['page'], 'UKMrsvp_'));
 	if(false === strpos($_GET['page'], 'UKMrsvp_')) {
-		$VIEW = 'oversikt';
+		if(isset($_GET['action']))
+			$VIEW = $_GET['action'];
+		else
+			$VIEW = 'oversikt';
 	} 
 	else {
 		$VIEW = substr($_GET['page'], 8);
