@@ -7,6 +7,7 @@ class EventManager {
 	private $createURL;
 	private $updateURL;
 	private $ownerURL;
+	private $participantsURL;
 
 	public function __construct($api_key, $api_secret) {
 		$this->api_key = $api_key;
@@ -17,11 +18,13 @@ class EventManager {
 			$this->createURL = 'http://rsvp.ukm.dev/web/app_dev.php/api/events/new/';
 			$this->updateURL = 'http://rsvp.ukm.dev/web/app_dev.php/api/events/edit/';
 			$this->ownerURL = 'http://rsvp.ukm.dev/web/app_dev.php/api/events/owner/';
+			$this->participantsURL = 'http://rsvp.ukm.dev/web/app_dev.php/api/participants/';
 		}
 		else {
 			$this->createURL = 'http://rsvp.ukm.no/api/events/new/';
 			$this->updateURL = 'http://rsvp.ukm.no/api/events/edit/';
-			$this->ownerURL = 'http://rsvp.ukm.no/api/events/owner/';	
+			$this->ownerURL = 'http://rsvp.ukm.no/api/events/owner/';
+			$this->participantsURL = 'http://rsvp.ukm.no/api/participants/';
 		}
 	}
 
@@ -92,7 +95,52 @@ class EventManager {
 		$time_start = microtime(true);
 		$curl = new UKMCURL();
 		$curl->post($settings);
-		$participants = $curl->process($this->participantsURL);
+		$participants = $curl->process($this->participantsURL.'all/');
+		return $this->handleResult($participants);
+	}
+
+	public function findAttending($event_id, $owner) {
+		$settings = array();
+		$settings['time'] = time();
+		$settings['SIGNED_REQUEST'] = $this->signer->sign($settings['time']);
+		$settings['API_KEY'] = $this->api_key;
+		$settings['event_id'] = $event_id;
+		$settings['owner'] = $owner;
+
+		$time_start = microtime(true);
+		$curl = new UKMCURL();
+		$curl->post($settings);
+		$participants = $curl->process($this->participantsURL.'attending/');
+		return $this->handleResult($participants);
+	}
+
+	public function findWaiting($event_id, $owner) {
+		$settings = array();
+		$settings['time'] = time();
+		$settings['SIGNED_REQUEST'] = $this->signer->sign($settings['time']);
+		$settings['API_KEY'] = $this->api_key;
+		$settings['event_id'] = $event_id;
+		$settings['owner'] = $owner;
+
+		$time_start = microtime(true);
+		$curl = new UKMCURL();
+		$curl->post($settings);
+		$participants = $curl->process($this->participantsURL.'waiting/');
+		return $this->handleResult($participants);
+	}
+
+	public function findNotComing($event_id, $owner) {
+		$settings = array();
+		$settings['time'] = time();
+		$settings['SIGNED_REQUEST'] = $this->signer->sign($settings['time']);
+		$settings['API_KEY'] = $this->api_key;
+		$settings['event_id'] = $event_id;
+		$settings['owner'] = $owner;
+
+		$time_start = microtime(true);
+		$curl = new UKMCURL();
+		$curl->post($settings);
+		$participants = $curl->process($this->participantsURL.'notcoming/');
 		return $this->handleResult($participants);
 	}
 
@@ -114,4 +162,12 @@ class EventManager {
 		else 
 			return $result;
 	}
+
+	public function loadEventFromEvents($id, $events) {
+		foreach($events->data as $event) {
+			if($event->id == $id)
+				return $event;
+		}
+	}
+
 }

@@ -1,0 +1,88 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+	{% if ingentilgang %}
+		<p class="lead">Du kan kun sende SMS til deltakere på dine egne arrangementer!</p>
+	{% else %}
+		<p class="lead">Send SMS til deltakerne på {{ event.name }}.</p>
+		{% if not participants is empty %}
+			<div class="col-xs-12 col-sm-4 col-lg-3">
+				<h4>Til alle som kommer</h4>
+				<p>{{ participants.attending.people|length }} personer.</p>
+				<form class="form-group" method="POST" action="?page=UKMSMS_gui">
+					<input type="hidden" name="UKMSMS_recipients" value="{{ participants.attending.numbers|join(',') }}">
+					<button type="submit" class="form-control btn btn-primary" {{ participants.attending.numbers|length > 0 ? '' : 'disabled'}}>Send melding</button>
+				</form>
+				{% if participants.attending.people|length > 0%}
+					<div class="">
+						{# <span class="lead">Personer som kommer</span><br /> #}
+						<a href="#" class="toggler" id="attending">Vis listen</a><br />
+						<div class="col-xs-12 list" id="attendingList" style="display: none;">
+							{% for person in participants.attending.people %}
+								<span class="UKMSMS">{{ person.first_name ~ ' ' ~ person.last_name }} - {{ person.phone }}</span><br />
+							{% endfor %}
+						</div>
+					</div>
+				{% endif %}
+			</div>
+			<div class="col-xs-12 col-sm-4 col-lg-3">
+				<h4>Til de på venteliste</h4>
+				<p>{{ participants.waiting.people|length }} personer.</p>
+				<form method="POST" action="?page=UKMSMS_gui">
+					<input type="hidden" name="UKMSMS_recipients" value="{{ participants.waiting.numbers|join(',') }}">
+					<button class="form-control btn btn-warning" {{ participants.waiting.numbers|length > 0 ? '' : 'disabled'}}>Send melding</button>
+				</form>
+				{% if participants.waiting.people|length > 0%}
+					<br />
+					<div class="">
+						{# <span class="lead">Personer som kanskje kommer</span><br /> #}
+						<a href="#" class="toggler" id="waiting">Vis listen</a><br />
+						<div class="col-xs-12 list" id="waitingList" style="display: none;">
+							{% for person in participants.waiting.people %}
+								<span class="UKMSMS">{{ person.first_name ~ ' ' ~ person.last_name }} - {{ person.phone }}</span><br />
+							{% endfor %}
+						</div>
+					</div>
+				{% endif %}
+			</div>
+			<div class="col-xs-12 col-sm-4 col-lg-3">
+				<h4>Til de som ikke vil komme</h4>
+				<p>{{ participants.notcoming.people|length }} personer.</p>
+				<p>Vær forsiktig med å sende for mange meldinger til de som har sagt at de ikke vil komme. Det kan fort bli for mye "mas".</p>
+				<form method="POST" action="?page=UKMSMS_gui">
+					<input type="hidden" name="UKMSMS_recipients" value="{{ participants.notcoming.numbers|join(',') }}">
+					<button type="submit" class="form-control btn btn-danger" {{ participants.notcoming.numbers|length > 0 ? '' : 'disabled'}}>Send melding</button>
+				</form>
+				{% if participants.notcoming.people|length > 0%}
+					<br />
+					<div class="">
+						{# <span class="lead">Personer som ikke kommer</span><br /> #}
+						<a href="#" class="toggler" id="notComing">Vis listen</a><br />
+						<div class="col-xs-12 list" id="notComingList" style="display: none;">
+							{% for person in participants.notcoming.people %}
+								<span class="UKMSMS">{{ person.first_name ~ ' ' ~ person.last_name }} - {{ person.phone }}</span><br />
+							{% endfor %}
+						</div>
+					</div>
+				{% endif %}
+			</div>
+		{% else %}
+			<p><b>Du har ingen deltakere!</b></p>
+		{% endif %}
+		<script>
+		jQuery(".toggler").click(function(d) {
+			//console.log(d);
+			list = jQuery("#"+d.target.id+"List");
+			//console.log("#"+d.target.id+"List");
+			if(list.is(":visible")) {
+				list.slideUp();
+				jQuery(d.target).html("Vis listen");
+			}
+			else {
+				list.slideDown();
+				jQuery(d.target).html("Skjul listen");
+			}
+		});
+		</script>
+	{% endif %}
+{% endblock %}

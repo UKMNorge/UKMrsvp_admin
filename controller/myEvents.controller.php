@@ -32,13 +32,5 @@ else {
 }
 if(isset($_GET['edit'])) {
 	$id = $_GET['edit'];
-	$TWIG['editEvent'] = loadEventFromEvents($id, $events);
+	$TWIG['editEvent'] = $eventManager->loadEventFromEvents($id, $events);
 }
-
-function loadEventFromEvents($id, $events) {
-	foreach($events->data as $event) {
-		if($event->id == $id)
-			return $event;
-	}
-}
-

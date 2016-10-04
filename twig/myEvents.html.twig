@@ -63,7 +63,8 @@
 					{{ event.date_start.date|dato("H:i l d.m") }}</td>
 					<td>{{ event.spots }}</td>
 					<td class="hidden-xs hidden-sm">{{ event.description|slice(0, 20) ~ '...' }}</td>
-					<td class="hidden-xs"><a href="?page=UKMrsvp&action=myEvents&edit={{ event.id }}">Rediger</a>
+					<td><a class="btn btn-xs btn-primary" href="?page=UKMrsvp&action=SMS&id={{ event.id }}">Send SMS til deltakerne</a>
+						<a class="btn btn-xs btn-primary" href="?page=UKMrsvp&action=myEvents&edit={{ event.id }}">Rediger</a></td>
 					<td><a href="{{ event.url }}" class="hidden-xs hidden-sm" target="_blank">Gå til arrangementssiden</a>
 					<a href="{{ event.url }}" class="visible-xs visible-sm" target="_blank">Vis</a></td>
 				</tr>
