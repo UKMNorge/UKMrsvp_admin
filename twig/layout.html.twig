@@ -7,7 +7,7 @@
 	
 	<div class="UKM_tabs UKM_tabs_5">
 		{% for tab in tabs %}
-		<a href="?page=UKMrsvp&action={{tab.link}}" {{ tab_active == tab.link ? 'class="active"' : ''}}>
+		<a href="?page=UKMrsvp{{ not tab.link is empty ? '_'~tab.link : '' }}" {{ (tab_active == tab.link) or ( tab_active == 'oversikt' and tab.link == '' ) ? 'class="active"' : ''}}>
 			<div>
 				<span class="tab_header">{{tab.header}}</span>
 				<img src="http://ico.ukm.no/{{tab.icon}}.png" width="25"  border="0" /><br />
