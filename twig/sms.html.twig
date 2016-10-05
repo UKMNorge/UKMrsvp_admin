@@ -7,7 +7,7 @@
 		<p class="lead">Send SMS til deltakerne på {{ event.name }}.</p>
 		{% if not participants is empty %}
 			<div class="col-xs-12 col-sm-4 col-lg-3">
-				<h4>Til alle som kommer</h4>
+				<h4>Til alle som {{ event.date_stop.date < now|date("U") ? 'var her' : 'kommer' }}</h4>
 				<p>{{ participants.attending.people|length }} personer.</p>
 				<form class="form-group" method="POST" action="?page=UKMSMS_gui">
 					<input type="hidden" name="UKMSMS_recipients" value="{{ participants.attending.numbers|join(',') }}">

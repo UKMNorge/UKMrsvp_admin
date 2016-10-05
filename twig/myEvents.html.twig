@@ -1,77 +1,97 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-	<div class="well">
-		{# <h4>Handlinger</h4> #}
-		{% if editEvent is defined %}
-			<div class="" style="" id="newEvent">
-				{% embed 'edit.html.twig' with { 'event': editEvent } %}{% endembed %}
-			</div>
+	
+	{# <h4>Handlinger</h4> #}
+	{% if editEvent is defined %}
+		<div class="" style="" id="newEvent">
+			{% embed 'edit.html.twig' with { 'event': editEvent } %}{% endembed %}
+		</div>
+		<div class="col-xs-6 col-sm-3">
+			<a href="?page=UKMrsvp&action=myEvents" {# onClick="newEvent(this)" #} id="meh" class="btn btn-default form-control">Avbryt</a>
+		</div>
+	{% else %}
+		<div class="" style="display:none;" id="newEvent">
+			{% embed 'edit.html.twig' %}{% endembed %}
+		</div>
+		{% if events|length > 0 %}
 			<div class="col-xs-6 col-sm-3">
-				<a href="?page=UKMrsvp&action=myEvents" {# onClick="newEvent(this)" #} id="meh" class="btn btn-default form-control">Avbryt</a>
-			</div>
-		{% else %}
-			<div class="" style="display:none;" id="newEvent">
-				{% embed 'edit.html.twig' %}{% endembed %}
-			</div>
-			<div class="col-xs-6 col-sm-3">
-				<a href="#" onClick="newEvent(this)" id="meh" class="btn btn-default form-control">Ny hendelse</a>
+				<a href="#" onClick="newEvent(this)" id="newEventButton" class="btn btn-success form-control">Opprett ny hendelse</a>
 			</div>
 		{% endif %}
-		<script>
-			function newEvent(button) {
-				var editor = jQuery("#newEvent")[0];
-				console.log(editor);
-				console.log(button);
-				if(editor.style.display == 'none') {
-					jQuery("#newEvent").slideDown();
-					jQuery("#"+button.getAttribute("id")).html("Avbryt");
-				}
-				else {
-					jQuery("#newEvent").slideUp();
-					jQuery("#"+button.getAttribute("id")).html("Ny hendelse");
-				}
+	{% endif %}
+	<script>
+		function newEvent(button) {
+			var editor = jQuery("#newEvent")[0];
+			console.log(editor);
+			console.log(button);
+			if(editor.style.display == 'none') {
+				jQuery("#newEvent").slideDown();
+				jQuery("#newEventButton").html("Avbryt");
+				jQuery("#newEventButton").removeClass("btn-success");
+				jQuery("#newEventButton").addClass("btn-default");
+				//jQuery("#"+button.getAttribute("id")).html("Avbryt");
 			}
-		</script>
+			else {
+				jQuery("#newEvent").slideUp();
+				//jQuery("#"+button.getAttribute("id")).html("Ny hendelse");
+				jQuery("#newEventButton").html("Opprett ny hendelse");
+				jQuery("#newEventButton").addClass("btn-success");
+				jQuery("#newEventButton").removeClass("btn-default");
+			}
+		}
+	</script>
 
-		<div class="clearfix"></div>
-	</div>
+	<div class="clearfix"></div>
 	<p>&nbsp;</p>
-	<h4>Dine hendelser</h4>
-	{% if not events is empty %}
-		{# TODO: FIKS DESIGN I LITEN VISNING #}
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th class="hidden-xs hidden-sm">Bilde</th>
-					<th>Navn</th>
-					<th class="hidden-xs hidden-sm">Sted</th>
-					<th>Start- og slutt-tid</th>
-					<th>Antall plasser</th>
-					<th class="hidden-xs hidden-sm">Beskrivelse</th>
-					<th class="hidden-xs"></th>
-					<th></th>
-			</thead>
-			<tbody>
-				{% for event in events %}
-				<tr>
-					<td class="hidden-xs hidden-sm"><a href="?page=UKMrsvp_myEvents&edit={{ event.id }}"><img src="{{ event.image }}" style="max-width: 50px;" /></a></td>
-					<td><a href="?page=UKMrsvp_myEvents&edit={{ event.id }}">{{ event.name }}</a></td>
-					<td class="hidden-xs hidden-sm">{{ event.place }}</td>
-					<td>{{ event.date_start.date|dato("H:i l d.m") }}
-						<div class="clearfix"></div>
-					{{ event.date_start.date|dato("H:i l d.m") }}</td>
-					<td>{{ event.spots }}</td>
-					<td class="hidden-xs hidden-sm">{{ event.description|slice(0, 20) ~ '...' }}</td>
-					<td><a class="btn btn-xs btn-primary" href="?page=UKMrsvp&action=SMS&id={{ event.id }}">Send SMS til deltakerne</a>
-						<a class="btn btn-xs btn-primary" href="?page=UKMrsvp_myEvents&edit={{ event.id }}">Rediger</a></td>
-					<td><a href="{{ event.url }}" class="hidden-xs hidden-sm" target="_blank">Gå til arrangementssiden</a>
-					<a href="{{ event.url }}" class="visible-xs visible-sm" target="_blank">Vis</a></td>
-				</tr>
-				{% endfor %}
-			</tbody>
-		</table>
-	{% else %}
-	<b>Du har ingen hendelser.</b>
+	{% if not editEvent is defined %}
+		{% if events|length > 0 %}
+			<h4>Dine hendelser</h4>
+		{% endif %}
+		{% if not events is empty %}
+			{# TODO: FIKS DESIGN I LITEN VISNING #}
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th class="hidden-xs hidden-sm">Bilde</th>
+						<th>Navn</th>
+						<th class="hidden-xs hidden-sm">Sted</th>
+						<th>Start- og slutt-tid</th>
+						<th>Antall plasser</th>
+						{# <th class="hidden-xs hidden-sm">Beskrivelse</th> #}
+						<th class="hidden-xs"></th>
+						<th></th>
+				</thead>
+				<tbody>
+					{% for event in events %}
+					<tr>
+						<td class="hidden-xs hidden-sm"><a href="?page=UKMrsvp&edit={{ event.id }}"><img src="{{ event.image }}" style="max-width: 50px;" /></a></td>
+						<td><a href="?page=UKMrsvp&edit={{ event.id }}">{{ event.name }}</a></td>
+						<td class="hidden-xs hidden-sm">{{ event.place }}</td>
+						<td>{{ event.date_start.date|dato("H:i l d.m") }}
+							<div class="clearfix"></div>
+						{{ event.date_stop.date|dato("H:i l d.m") }}</td>
+						<td>{{ event.spots > 0 ? event.spots : 'Ubegrenset' }}</td>
+						{# <td class="hidden-xs hidden-sm">{{ event.description|slice(0, 20) ~ '...' }}</td> #}
+						<td><a class="btn btn-xs btn-primary" href="?page=UKMrsvp&action=SMS&id={{ event.id }}">Send SMS til deltakerne</a>
+							<a class="btn btn-xs btn-primary" href="?page=UKMrsvp&edit={{ event.id }}">Rediger</a></td>
+						<td><a href="{{ event.url }}" class="hidden-xs hidden-sm" target="_blank">Gå til arrangementssiden</a>
+						<a href="{{ event.url }}" class="visible-xs visible-sm" target="_blank">Vis</a></td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		{% else %}
+			<div class="col-xs-12 col-sm-6 col-md-3">
+				<h3>Du har ingen hendelser.</h3>
+				<span>Du kan enten</span><br />
+				<a class="lead btn btn-block btn-success" id="newEventButton" href="#" onClick="newEvent(this)">Opprette din første hendelse</a><br />
+				<span>eller</span><br />
+				<a class="lead btn btn-block btn-default" href="?page=UKMrsvp_hjelp">Lese mer om hvordan bruke Helårig UKM</a>
+			</div>
+
+	</p>
+
+		{% endif %}
 	{% endif %}
 {% endblock %}

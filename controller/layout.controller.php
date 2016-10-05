@@ -1,12 +1,8 @@
 <?php
 
 $tabs = array();
-$tabs[] = (object) array( 'link' 		=> '',
-						  'header' 		=> 'Oversikt',
-						  'icon'		=> 'info-button-256',
-						  'description'	=> 'Hva er egentlig dette?');
 
-$tabs[] = (object) array( 'link'		=> 'myEvents',
+$tabs[] = (object) array( 'link'		=> '',
 						  'header'		=> 'Mine hendelser',
 						  'icon'		=> 'mapmarker-bubble-pink-256',
 						  'description' => 'Administrer hendelser');
@@ -15,6 +11,11 @@ $tabs[] = (object) array( 'link'		=> 'events',
 						  'header'		=> 'Alle hendelser',
 						  'icon'		=> 'mapmarker-bubble-green-256',
 						  'description' => 'Fra hele UKM-nettverket');
+
+$tabs[] = (object) array( 'link' 		=> 'hjelp',
+						  'header' 		=> 'Hjelp',
+						  'icon'		=> 'info-button-256',
+						  'description'	=> 'Hva er egentlig dette?');
 
 $TWIG['tabs'] = $tabs;
 

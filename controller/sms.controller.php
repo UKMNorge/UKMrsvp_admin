@@ -1,8 +1,8 @@
 <?php
 require_once(__DIR__.'/../class/EventManager.php');
 $api_key = 'test';
-$api_secret = 'pah';
-$eventManager = new EventManager($api_key, $api_secret);
+$secretFinder = new SecretFinder();
+$eventManager = new EventManager($api_key, $secretFinder->getSecret($api_key));
 
 $events = $eventManager->fetchEvents($owner);
 

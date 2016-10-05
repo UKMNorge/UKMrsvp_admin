@@ -1,67 +1,117 @@
 <form class="form" method="POST" action="?page=UKMrsvp&action=myEvents">
-	<div class="form-group col-xs-12 col-sm-4 col-md-3">
-		<label for="name">Navn på hendelse
-		</label>
-		<input type="hidden" id="event_id" name="event_id" value="{{ event.id is defined ? event.id : '' }}">
-		<input type="text" class="form-control" id="name" name="name" value="{{ event.name is defined ? event.name : ''}}">
-		<p class="help-block">Dette er navnet på hendelsen din, som vil vises for alle.</p>
-	</div>
-	<div class="form-group col-xs-12 col-sm-4 col-md-3">
-		<label for="place">Sted</label>
-		<input type="text" class="form-control" id="place" name="place" value="{{ event.place is defined ? event.place : '' }}">
-		<p class="help-block">Hvor skal det foregå?</p>
-	</div>
-	<div class="form-group col-xs-12 col-sm-4 col-md-3">
-		<label for="date_start">Start-tid</label>
-		<input type="text" class="form-control" id="date_start" name="date_start" value="{{ event.date_start is defined ? event.date_start.date : '' }}">
-		<p class="help-block">Når starter hendelsen din?</p>
-	</div>
-	<div class="clearfix visible-sm"></div>
-	<div class="form-group col-xs-12 col-sm-4 col-md-3">
-		<label for="date_stop">Slutt-tid</label>
-		<input type="text" class="form-control" id="date_stop" name="date_stop" value="{{ event.date_stop is defined ? event.date_stop.date : '' }}">
-		<p class="help-block">Når slutter det?</p>
-	</div>
-	<div class="clearfix visible-md visible-lg"></div>
-	<div class="col-xs-12 col-sm-4 col-md-3">
-		<div class="form-group">
-			<label for="spots">Antall plasser
+	<div class="col-xs-12 col-sm-6">
+		<h3>Informasjon om arrangementet ditt</h3>
+		<div class="form-group col-xs-12">
+			<label for="name">Navn på hendelse
 			</label>
-			<input type="numeric" class="form-control" id="spots" name="spots" value="{{ event.spots is defined ? event.spots : ''}}">
-			<p class="help-block">Hvor mange deltakere har du plass til?</p>
+			<input type="hidden" id="event_id" name="event_id" value="{{ event.id is defined ? event.id : '' }}">
+			<input type="text" class="form-control" id="name" name="name" value="{{ event.name is defined ? event.name : ''}}" required>
+		</div>
+		<div class="form-group col-xs-12">
+			<label for="place">Hvor skal det foregå?</label>
+			<input type="text" class="form-control" id="place" name="place" value="{{ event.place is defined ? event.place : '' }}">
+		</div>
+		<div class="form-group col-xs-8">
+			<label for="date_start">Når starter hendelsen din?</label>
+			<input type="text" class="form-control datepicker" id="date_start" name="date_start" value="{{ event.date_start is defined ? event.date_start.date|date("Y-m-d") : '' }}" required>
+		</div>
+		<div class="form-group col-xs-4">
+			<label for="time_start">Klokka?</label>
+			<input type="text" class="form-control" id="time_start" name="time_start" value="{{ event.date_start is defined ? event.date_start.date|date("H:i") : '16:00' }}">
+		</div>
+		<div class="clearfix visible-sm"></div>
+		<div class="form-group col-xs-8">
+			<label for="date_stop">Når slutter det?</label>
+			<input type="text" class="form-control datepicker" id="date_stop" name="date_stop" value="{{ event.date_stop is defined ? event.date_stop.date|date("Y-m-d") : '' }}" required>
+		</div>
+		<div class="form-group col-xs-4">
+			<label for="time_stop">Klokka?</label>
+			<input type="text" class="form-control" id="time_stop" name="time_stop" value="{{ event.date_stop is defined ? event.date_stop.date|date("H:i") : '20:00' }}">
+		</div>
+		<div class="clearfix visible-md visible-lg"></div>
+		<div class="col-xs-12">
+			<div class="form-group">
+				<label for="spots">Hvor mange deltakere har du plass til?
+				</label>
+				<input type="numeric" class="form-control" id="spots" name="spots" value="{{ event.spots is defined ? event.spots : ''}}" required>
+				<span class="help-block">Har du ubegrenset med plass, skriv 0.</span>
+			</div>
+		</div>
+		<div class="col-xs-12">
+		<div class="form-group">
+			<label for="description">Skriv kort om hva som skal skje.</label>
+			<textarea class="form-control" id="description" name="description">{{ event.description is defined ? event.description : '' }}</textarea>
+			{# <input type="text" class="form-control" id="description" name="description" value="{{ event.description is defined ? event.description : ''}}"> #}
 		</div>
 	</div>
-	<div class="col-xs-12 col-sm-4 col-md-3">
+	</div>
+	<div class="col-xs-12 col-sm-6">
 		<div class="form-group">
 			<input type="hidden" class="form-control" name="image" id="image" value="{{ event.image is defined ? event.image : ''}}">
-			<label for="image">Bilde</label><br>
+			<label for="image">Velg et bilde</label><br>
 			<div id="preview_holder" style="{{ not event.image is empty ? '' : 'display:none;' }}">
 				<img id="image_preview" class="img-responsive" src="{{ event.image is defined ? event.image : '' }}">
 			</div>
 			<div class="input-group">
 				<input type="text" class="form-control" name="image_name" id="image_name" disabled="disabled" value="{{ event.image }}">
 				<span class="input-group-btn">
-					<button id="lastOpp" class="btn btn-default">Velg bilde</button>
+					<button type="button" id="lastOpp" class="btn btn-default">Velg bilde</button>
 				</span>
 			</div>
-			<p class="help-block">Bildet vises på arrangementssiden.</p>
 		</div>
 	</div>
-	<div class="clearfix visible-md"></div>
-	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
-		<div class="form-group">
-			<label for="description">Beskrivelse</label>
-			<textarea class="form-control" id="description" name="description">{{ event.description is defined ? event.description : '' }}</textarea>
-			<p class="help-block">Skriv kort om hva som skal skje.</p>
-			{# <input type="text" class="form-control" id="description" name="description" value="{{ event.description is defined ? event.description : ''}}"> #}
+	<div class="clearfix"></div>
+	<div class="col-xs-12 col-sm-6 form-group">
+		<h3>Hvordan markedsføre arrangementet ditt?</h3>
+		<p>Lenken under går til påmeldingssiden for arrangementet ditt. Del denne med potensielle deltakere.</p>
+		<div class="input-group">
+			<input type="text" id="copy-input" class="form-control" value="{{ event.url }}" placeholder="Fylles inn automatisk når arrangementet er lagret." disabled>
+			<span class="input-group-btn">
+				<button type="button" id="copy-button" class="btn btn-default">Kopier</button>
+			</span>
 		</div>
+		<p>&nbsp;</p>
+		<p>Husk også å benytte tradisjonell markedsføring, som å lage en nyhetssak på nettsiden din, heng opp plakater på ungdomsklubbene og få nøkkelungdommene dine til å snakke om arrangementet. Det er heller ingenting i veien for å ha et facebook-arrangement med lenken over som "formell" påmelding.</p>
 	</div>
 	<div class="clearfix"></div>
 	<div class="col-xs-6 col-sm-3">
 		<button type="submit" class="btn btn-success form-control">Lagre</button>
 	</div>
 </form>
+<script>
+jQuery(document).ready(function() {
+  // Initialize the tooltip.
+  jQuery('#copy-button').tooltip();
 
+  // When the copy button is clicked, select the value of the text box, attempt
+  // to execute the copy command, and trigger event to update tooltip message
+  // to indicate whether the text was successfully copied.
+  jQuery('#copy-button').bind('click', function(click) {
+  	click.preventDefault();
+    var input = document.querySelector('#copy-input');
+    input.setSelectionRange(0, input.value.length + 1);
+    try {
+      var success = document.execCommand('copy');
+      if (success) {
+        jQuery('#copy-button').trigger('copied', ['Kopiert!']);
+      } else {
+        jQuery('#copy-button').trigger('copied', ['Kopier med Ctrl-C']);
+      }
+    } catch (err) {
+      jQuery('#copy-button').trigger('copied', ['Kopier med Ctrl-C']);
+    }
+  });
+
+  // Handler for updating the tooltip message.
+  jQuery('#copy-button').bind('copied', function(event, message) {
+    jQuery(this).attr('title', message)
+        .tooltip('fixTitle')
+        .tooltip('show')
+        .attr('title', "Kopier til utklippstavle")
+        .tooltip('fixTitle');
+  });
+});
+</script>
 <script>
 var media_uploader = null;
 
