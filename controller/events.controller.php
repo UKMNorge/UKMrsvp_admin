@@ -25,7 +25,7 @@ if(UKM_HOSTNAME == 'ukm.dev' )
 	$url = 'http://rsvp.ukm.dev/web/app_dev.php/api/events/all/';
 else 
 	$url = 'http://rsvp.ukm.no/api/events/all/';
-$events = $curl->process();
+$events = $curl->process($url);
 $time_end = microtime(true);
 // Logg this:
 #echo '<br>CURL tok '.round(($time_end - $time_start), 2).' sekunder å fullføre.';
