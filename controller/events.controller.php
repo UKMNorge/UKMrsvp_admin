@@ -14,7 +14,6 @@ $settings['time'] = time();
 $settings['SIGNED_REQUEST'] = $signer->sign($settings['time']);
 $settings['API_KEY'] = $api_key;
 
-
 #var_dump($settings);
 $time_start = microtime(true);
 $curl = new UKMCURL();
@@ -22,7 +21,11 @@ $curl = new UKMCURL();
 $curl->timeout(5);
 $curl->post($settings);
 // Curl har ikke HOST :/
-$events = $curl->process('http://rsvp.ukm.dev/web/app_dev.php/api/events/all/');
+if(UKM_HOSTNAME == 'ukm.dev' )
+	$url = 'http://rsvp.ukm.dev/web/app_dev.php/api/events/all/';
+else 
+	$url = 'http://rsvp.ukm.no/api/events/all/';
+$events = $curl->process();
 $time_end = microtime(true);
 // Logg this:
 #echo '<br>CURL tok '.round(($time_end - $time_start), 2).' sekunder å fullføre.';
