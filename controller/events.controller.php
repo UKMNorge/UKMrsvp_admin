@@ -5,9 +5,9 @@ $events = array();
 require_once('UKM/curl.class.php');
 require_once(__DIR__ .'/../class/Signer.php');
 
-$api_key = 'test';
-$api_secret = 'pah';
-$signer = new Signer($api_key, $api_secret);
+$api_key = 'ukmno_rsvp';
+$secretFinder = new SecretFinder();
+$signer = new Signer($api_key, $secretFinder->getSecret($api_key));
 
 $settings = array();
 $settings['time'] = time();
