@@ -47,6 +47,8 @@ if($events->success == true) {
 elseif($events->success == false) {
 	$TWIG['message'] = new stdClass();
 	$TWIG['message']->success = false;
+	if(is_super_admin())
+		var_dump($events);
 	$TWIG['message']->body = 'RSVP returnerte følgende feil: '.$events->errors[0];
 }
 else {
