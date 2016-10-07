@@ -99,6 +99,19 @@ class EventManager {
 		return $this->handleResult($participants);
 	}
 
+	public function findAllAttending($owner) {
+		$settings = array();
+		$settings['time'] = time();
+		$settings['SIGNED_REQUEST'] = $this->signer->sign($settings['time']);
+		$settings['API_KEY'] = $this->api_key;
+		$settings['owner'] = $owner;
+
+		$curl = new UKMCURL();
+		$curl->post($settings);
+		$participants = $curl->process($this->participantsURL.'allForOwner/');
+		return $this->handleResult($participants);
+	}
+
 	public function findAttending($event_id, $owner) {
 		$settings = array();
 		$settings['time'] = time();
