@@ -3,20 +3,62 @@
 {% block content %}
 	<div class="col-xs-12 col-sm-10">
 		<p>&nbsp;</p>
-		<p class="lead">RSVP er vårt første verktøy for et helårlig UKM. Skal du arrangere noe utenom den faste mønstringen? Du er kommet på rett sted!</p>
-
-		<p>Her kan du opprette nye hendelser og få enkel på/avmelding for deltakere, hente ut deltakerinformasjon, sende SMS til påmeldte eller de på venteliste.</p>
-
-		<p>Vil du ha inspirasjon til prosjekter og events? Sjekk ut siden <a href="?page=UKMrsvp_events">"Andre hendelser"</a>, der du kan få detaljer om alle events i UKM-nettverket.</p>
-
-		<p>Vil du sende ut mer informasjon eller en påminnelse til deltakerne dine, eller kontakte de etter et arrangement for å få de med på lokalmønstringen? Gå til fanen "Mine hendelser" og trykk på knappen "Send SMS til deltakerne" for arrangementet det gjelder. Du kan sende SMS både til enkeltpersoner og alle som kommer, står på venteliste eller ikke vil komme.</p>
+		<h3>Hvordan bruke helårig UKM?</h3>
 		
-		<p>Lenken under tar deg til forsiden av RSVP. På <a href="?page=UKMrsvp_myEvents">"Mine hendelser"</a> finner du lenken direkte til ditt arrangement, som du kan dele med deltakere.</p>
-		<div class="col-xs-6">
-			<p class="lead">
-				<a href="http://rsvp.ukm.no" target="_blank"><img src="http://ico.ukm.no/mapmarker-bubble-pink-256.png" width="64">Gå til RSVP</a>
-			</p>
-		</div>
+		<p class="lead">
+			Helårig UKM lar deg raskt opprette arrangementer og ta i mot påmelding til disse.
+		</p>
+
+		<h4 style="margin-bottom:5px;">
+			Sende SMS
+		</h4>
+		<p>
+			Hvis du vil kontakte de som skal delta, de som står på venteliste, eller til og med de som har sagt "nei takk", kan du sende sms til disse.
+			<br />
+			SMS sender du ved å bruke <a href="admin.php?page=UKMrapport_admin&rapport=rsvp&kat=helarig">rapporten for "helårig UKM"</a>.
+		</p>
+
+		<h4 style="margin-bottom:5px;">
+			Vil du ha inspirasjon til prosjekter og events?
+		</h4>
+		<p>
+			Sjekk ut siden <a href="?page=UKMrsvp_events">"Alle hendelser"</a>, der du kan få detaljer om alle events i UKM-nettverket.
+		</p>
+		 
+	
+		<h4 style="margin-bottom:5px;">
+			Markedsføre helårig UKM
+		</h4>
+		<p>	
+			På <a href="?page=UKMrsvp_myEvents">"Mine hendelser"</a> finner du lenken til ditt arrangement. Denne kan du dele som du vil, på facebook, via sms, plakater e.l.
+		</p>
+		<p>
+			I <a href="?page=UKMmateriell">designgeneratoren</a> kan du bruke ferdigmalene våre til å lage arrangementsplakater, facebookbannere osv
+		</p>
+		
+		
+		<h4 style="margin-bottom:5px;">
+			Venteliste
+		</h4>
+		<p>	
+			Har arrangementet begrenset plass? Sett en maksgrense - systemet har automatisk venteliste. Når maksgrensen er nådd vil det være mulig å trykke "sett meg på venteliste". 
+			Hvis en eller flere deltakere melder seg av (trykker på en annen knapp enn "jeg kommer") skjer følgende:
+		</p>
+		<ol class="list">
+		 	<li>Første person på ventelisten endres automatisk til "jeg kommer"</li>
+		 	<li>Systemet sender en sms til personen (som ble flyttet over til ”jeg kommer”) med beskjed om dette, samt info om avmelding</li>
+		 	<li>Personen kan velge å stå som "jeg kommer", eller klikke på en lenke i sms'en for å melde seg av
+		 	<li>Hvis personen velger å melde seg av vil neste person på ventelisten automatisk endres (prosessen gjentas)</li>
+		</ol>
+		
+		<h4 style="margin-bottom:5px;">
+			Statistikk
+		</h4>
+		<p>	
+			Vi teller alle påmeldinger i helårig UKM som en egen del i statistikken. Hvor mange påmeldte du har totalt kan du se på forsiden i arrangørsystemet, i boksen "Påmeldte".
+		</p>
+
+
 	</div>
 	<div class="clearfix"></div>
 {% endblock %}
