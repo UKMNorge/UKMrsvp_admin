@@ -4,12 +4,12 @@ $tabs = array();
 
 $tabs[] = (object) array( 'link'		=> '',
 						  'header'		=> 'Mine hendelser',
-						  'icon'		=> 'mapmarker-bubble-pink-256',
+						  'icon'		=> 'group-meeting-64',
 						  'description' => 'Administrer hendelser');
 
 $tabs[] = (object) array( 'link'		=> 'events',
 						  'header'		=> 'Alle hendelser',
-						  'icon'		=> 'mapmarker-bubble-green-256',
+						  'icon'		=> 'map-child-64',
 						  'description' => 'Fra hele UKM-nettverket');
 
 $tabs[] = (object) array( 'link' 		=> 'hjelp',
