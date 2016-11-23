@@ -20,6 +20,9 @@ if(isset($_POST['name'])) {
 		$TWIG['message']->body = 'Lagret hendelsen "'.$data['name'].'".';
 	}
 	else {
+		if(is_super_admin()) {
+			var_dump($saveResult);
+		}
 		$TWIG['message'] = $saveResult;
 	}
 }

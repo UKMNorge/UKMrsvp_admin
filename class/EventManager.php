@@ -40,7 +40,7 @@ class EventManager {
 		$event_description = $data['description'];
 
 		#var_dump($data);
-		if(null == $event_name || null == $event_date_start || null == $event_date_stop || null == $event_spots || null == $event_description) {
+		if(null == $event_name || null == $event_date_start || null == $event_date_stop || null == $event_spots ) {
 			$result->success = false;
 			$result->errors[] = 'Noe informasjon mangler!';
 			#var_dump($data);
