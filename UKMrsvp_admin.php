@@ -20,13 +20,13 @@ if(is_admin()) {
 function UKMrsvp_menu() {
 	global $UKMN;
 
-	#add_menu_page('monstring', 'RSVP', 'RSVP', 'editor', 'UKMrsvp', 'UKMrsvp', 'http://ico.ukm.no/mapmarker-bubble-pink-32.png',20);
-	#$page = UKM_add_menu_page('resources', 'Helårig UKM', 'Helårig UKM', 'superadmin', 'UKMrsvp', 'UKMrsvp', 'http://ico.ukm.no/mapmarker-bubble-pink-19.png', 45);
+	#add_menu_page('monstring', 'RSVP', 'RSVP', 'editor', 'UKMrsvp', 'UKMrsvp', '//ico.ukm.no/mapmarker-bubble-pink-32.png',20);
+	#$page = UKM_add_menu_page('resources', 'Helårig UKM', 'Helårig UKM', 'superadmin', 'UKMrsvp', 'UKMrsvp', '//ico.ukm.no/mapmarker-bubble-pink-19.png', 45);
 	/*UKMrsvp&action=myEvents*/
-	$page = UKM_add_menu_page('resources', 'Helårig UKM', 'Helårig UKM', 'editor', 'UKMrsvp', 'UKMrsvp', 'http://ico.ukm.no/group-meeting-menu.png', 45);
+	$page = UKM_add_menu_page('resources', 'Helårig UKM', 'Helårig UKM', 'editor', 'UKMrsvp', 'UKMrsvp', '//ico.ukm.no/group-meeting-menu.png', 45);
 	$subpage = UKM_add_submenu_page('UKMrsvp', 'Alle hendelser', 'Alle hendelser', 'editor', 'UKMrsvp_events', 'UKMrsvp');
 	$subpage = UKM_add_submenu_page('UKMrsvp', 'Hjelp', 'Hjelp', 'editor', 'UKMrsvp_hjelp', 'UKMrsvp');
-	#UKM_add_menu_page('norge','Lokalaviser', 'Lokalaviser', 'editor', 'UKMpr','UKMpr', 'http://ico.ukm.no/contact-menu.png', 11);
+	#UKM_add_menu_page('norge','Lokalaviser', 'Lokalaviser', 'editor', 'UKMpr','UKMpr', '//ico.ukm.no/contact-menu.png', 11);
 	#add_action( 'admin_print_styles-' . $page, 'UKMrsvp_scripts_and_styles' );
 	UKM_add_scripts_and_styles('UKMrsvp', 'UKMrsvp_scripts_and_styles');
 }

@@ -22,9 +22,9 @@ $curl->timeout(5);
 $curl->post($settings);
 // Curl har ikke HOST :/
 if(UKM_HOSTNAME == 'ukm.dev' )
-	$url = 'http://rsvp.ukm.dev/web/app_dev.php/api/events/all/';
+	$url = 'https://rsvp.ukm.dev/web/app_dev.php/api/events/all/';
 else 
-	$url = 'http://rsvp.ukm.no/api/events/all/';
+	$url = 'https://rsvp.ukm.no/api/events/all/';
 $events = $curl->process($url);
 $time_end = microtime(true);
 // Logg this:

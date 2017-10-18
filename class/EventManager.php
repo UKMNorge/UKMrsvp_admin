@@ -15,16 +15,16 @@ class EventManager {
 		$this->signer = new Signer($this->api_key, $this->api_secret);
 
 		if(UKM_HOSTNAME == 'ukm.dev') {
-			$this->createURL = 'http://rsvp.ukm.dev/web/app_dev.php/api/events/new/';
-			$this->updateURL = 'http://rsvp.ukm.dev/web/app_dev.php/api/events/edit/';
-			$this->ownerURL = 'http://rsvp.ukm.dev/web/app_dev.php/api/events/owner/';
-			$this->participantsURL = 'http://rsvp.ukm.dev/web/app_dev.php/api/participants/';
+			$this->createURL = 'https://rsvp.ukm.dev/web/app_dev.php/api/events/new/';
+			$this->updateURL = 'https://rsvp.ukm.dev/web/app_dev.php/api/events/edit/';
+			$this->ownerURL = 'https://rsvp.ukm.dev/web/app_dev.php/api/events/owner/';
+			$this->participantsURL = 'https://rsvp.ukm.dev/web/app_dev.php/api/participants/';
 		}
 		else {
-			$this->createURL = 'http://rsvp.ukm.no/api/events/new/';
-			$this->updateURL = 'http://rsvp.ukm.no/api/events/edit/';
-			$this->ownerURL = 'http://rsvp.ukm.no/api/events/owner/';
-			$this->participantsURL = 'http://rsvp.ukm.no/api/participants/';
+			$this->createURL = 'https://rsvp.ukm.no/api/events/new/';
+			$this->updateURL = 'https://rsvp.ukm.no/api/events/edit/';
+			$this->ownerURL = 'https://rsvp.ukm.no/api/events/owner/';
+			$this->participantsURL = 'https://rsvp.ukm.no/api/participants/';
 		}
 	}
 
